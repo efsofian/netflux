@@ -8,9 +8,11 @@ const Navbar = ({ username }) => {
 	const router = useRouter();
 	const [showDropdown, setShowDropdown] = useState(false);
 	const handleOnClickHome = (e) => {
+		e.preventDefault();
 		router.push("/");
 	};
 	const handleOnClickMyList = (e) => {
+		e.preventDefault();
 		router.push("/browse/my-list");
 	};
 	const handleDropdown = (e) => {
