@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Banner from "../components/Banner/Banner.component";
@@ -21,7 +22,7 @@ export default function Home({
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className={styles.main}>
-				<Navbar username="efsofian@gmail.com" />
+				<Navbar />
 				<Banner
 					title="Cliff the dog"
 					subTitle="a very cute dog"
