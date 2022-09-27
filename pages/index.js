@@ -27,6 +27,7 @@ export default function Home({
 					title="Cliff the dog"
 					subTitle="a very cute dog"
 					imgUrl="/static/clifford.webp"
+					videoId="4zH5iYM4wJo"
 				/>
 				<div className={styles.sectionWrapper}>
 					<SectionCards title="Disney" videos={disneyVideos} size="large" />

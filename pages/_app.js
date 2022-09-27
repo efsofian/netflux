@@ -5,21 +5,21 @@ import magic from "../lib/magic-client";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false); // true
 	const router = useRouter();
 
 	useEffect(() => {
-		const asyncMetaFetcher = async () => {
-			try {
-				const isLoggedIn = await magic.user.isLoggedIn();
-				if (isLoggedIn) {
-					router.push("/");
-				} else {
-					router.push("/login");
-				}
-			} catch (e) {}
-		};
-		asyncMetaFetcher();
+		// const asyncMetaFetcher = async () => {
+		// 	try {
+		// 		const isLoggedIn = await magic.user.isLoggedIn();
+		// 		if (isLoggedIn) {
+		// 			router.push("/");
+		// 		} else {
+		// 			router.push("/login");
+		// 		}
+		// 	} catch (e) {}
+		// };
+		// asyncMetaFetcher();
 	}, []);
 
 	useEffect(() => {
