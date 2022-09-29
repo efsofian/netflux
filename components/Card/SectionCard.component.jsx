@@ -8,7 +8,6 @@ const SectionCards = ({ title, videos = [], size }) => {
 			<h2 className={styles.title}>{title}</h2>
 			<div className={styles.cardWrapper}>
 				{videos.map((video) => {
-					console.log(video);
 					return (
 						<Link href={`/video/${video.id}`} key={video.id}>
 							<a>

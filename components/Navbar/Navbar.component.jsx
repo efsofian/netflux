@@ -35,7 +35,9 @@ const Navbar = () => {
 	useEffect(() => {
 		const asyncMetaFetcher = async () => {
 			try {
-				const { email, publicAddress } = await magic.user.getMetadata();
+				const { email, issuer, publicAddress } = await magic.user.getMetadata();
+				const didToken = await magic.user.getIdToken();
+				console.log("didtoken from navbar", didToken);
 				if (email) {
 					setUsername(email);
 				}
