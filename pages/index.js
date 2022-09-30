@@ -6,13 +6,20 @@ import Navbar from "../components/Navbar/Navbar.component";
 import SectionCards from "../components/Card/SectionCard.component";
 import Card from "../components/Card/Card.component";
 import styles from "../styles/Home.module.css";
-import { getPopularVideos, getVideos } from "../lib/transfVideos";
+import {
+	getPopularVideos,
+	getVideos,
+	getWatchItAgainVideos,
+} from "../lib/transfVideos";
+import { verifyToken } from "../lib/utils";
+import RedirectUser from "../utils/redirectUser";
 
 export default function Home({
 	disneyVideos,
 	productivityVideos,
 	travelVideos,
 	popularVideos,
+	watchAgainVideos,
 }) {
 	return (
 		<div className={styles.container}>
@@ -31,6 +38,11 @@ export default function Home({
 				/>
 				<div className={styles.sectionWrapper}>
 					<SectionCards title="Disney" videos={disneyVideos} size="large" />
+					<SectionCards
+						title="Watch it again"
+						videos={watchAgainVideos}
+						size="small"
+					/>
 					<SectionCards title="Travel" videos={travelVideos} size="small" />
 					<SectionCards
 						title="Productivity"
@@ -44,11 +56,22 @@ export default function Home({
 	);
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+	const { userId, token } = await RedirectUser(context);
+	// if (!userId) {
+	// 	return {
+	// 		props: {},
+	// 		redirect: {
+	// 			destination: "/login",
+	// 			permanent: false,
+	// 		},
+	// 	};
+	// }
 	const disneyVideos = await getVideos("disney trailer");
 	const productivityVideos = await getVideos("Productivity");
 	const travelVideos = await getVideos("travel");
 	const popularVideos = await getPopularVideos();
+	const watchAgainVideos = await getWatchItAgainVideos(userId, token);
 
 	// const popularVideos = await getVideos("disney trailer");
 	return {
@@ -57,6 +80,7 @@ export async function getServerSideProps() {
 			productivityVideos,
 			travelVideos,
 			popularVideos,
+			watchAgainVideos,
 		},
 	};
 }

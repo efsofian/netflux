@@ -9,6 +9,7 @@ const Navbar = () => {
 	const router = useRouter();
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [username, setUsername] = useState("");
+	const [didToken, setDidToken] = useState("");
 	const handleOnClickHome = (e) => {
 		e.preventDefault();
 		router.push("/");
@@ -23,9 +24,14 @@ const Navbar = () => {
 	const handleSignOut = async (e) => {
 		e.preventDefault();
 		try {
-			await magic.user.logout();
-			console.log(await magic.user.isLoggedIn());
-			router.push("/login");
+			const response = await fetch("/api/logout", {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${didToken}`,
+					"Content-Type": "application/json",
+				},
+			});
+			const res = await response.json();
 		} catch (e) {
 			console.error(`error loggin out :${e}`);
 			router.push("/login");
@@ -36,8 +42,8 @@ const Navbar = () => {
 		const asyncMetaFetcher = async () => {
 			try {
 				const { email, issuer, publicAddress } = await magic.user.getMetadata();
-				const didToken = await magic.user.getIdToken();
-				console.log("didtoken from navbar", didToken);
+				const dtk = await magic.user.getIdToken();
+				setDidToken(dtk);
 				if (email) {
 					setUsername(email);
 				}

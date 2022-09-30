@@ -4,7 +4,12 @@ import styles from "./Card.module.css";
 import { motion } from "framer-motion";
 import cls from "classnames";
 
-const Card = ({ imgUrl = "/static/clifford.webp", size = "medium", id }) => {
+const Card = ({
+	imgUrl = "/static/clifford.webp",
+	size = "medium",
+	id,
+	shouldScale = true,
+}) => {
 	const [imgSrc, setImgSrc] = useState(imgUrl);
 	const classMap = {
 		large: styles.lgItem,
@@ -18,11 +23,14 @@ const Card = ({ imgUrl = "/static/clifford.webp", size = "medium", id }) => {
 		);
 	};
 	const scale = id === 0 ? { scaleY: 1.1 } : { scale: 1.1 };
+	const shouldHover = shouldScale && {
+		whileHover: { ...scale },
+	};
 	return (
 		<div className={styles.container}>
 			<motion.div
-				whileHover={scale}
-				className={cls(styles.imgMotionWrapper, classMap[size])}>
+				className={cls(styles.imgMotionWrapper, classMap[size])}
+				{...shouldHover}>
 				<Image
 					src={imgSrc}
 					alt="pics"
